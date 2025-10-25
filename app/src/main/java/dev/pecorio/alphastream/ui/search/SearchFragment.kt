@@ -87,8 +87,14 @@ class SearchFragment : Fragment() {
                     startActivity(intent)
                 }
                 "series" -> {
-                    // TODO: Implement series details
-                    showMessage("Détails des séries bientôt disponibles")
+                    // Convert SearchResult to Series and open details
+                    val series = searchResult.toSeries()
+                    if (series != null) {
+                        val intent = SeriesDetailsActivity.newIntent(requireContext(), series.id ?: "")
+                        startActivity(intent)
+                    } else {
+                        showMessage("Impossible d'ouvrir les détails de cette série")
+                    }
                 }
             }
         }
@@ -197,7 +203,13 @@ class SearchFragment : Fragment() {
         binding.recentSearchesLayout.visibility = View.GONE
         binding.searchResultsRecyclerView.visibility = View.VISIBLE
         
-        searchResultsAdapter.submitList(results)
+        // Filter out null results and ensure list is not empty
+        val validResults = results.filter { it.title.isNotBlank() }
+        if (validResults.isNotEmpty()) {
+            searchResultsAdapter.submitList(validResults)
+        } else {
+            showEmptyState()
+        }
     }
 
     private fun showEmptyState() {

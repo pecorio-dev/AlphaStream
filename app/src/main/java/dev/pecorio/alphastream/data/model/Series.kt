@@ -166,14 +166,30 @@ data class Series(
     /**
      * Retourne le nombre total d'épisodes avec sécurité
      */
-    fun getTotalEpisodes(): Int = seasons?.sumOf { season -> 
-        season.episodes?.size ?: 0 
-    } ?: 0
+    fun getTotalEpisodes(): Int {
+        return try {
+            seasons?.sumOf { season -> 
+                try {
+                    season.episodes?.size ?: 0
+                } catch (e: Exception) {
+                    0
+                }
+            } ?: 0
+        } catch (e: Exception) {
+            0
+        }
+    }
     
     /**
      * Retourne le nombre total de saisons avec sécurité
      */
-    fun getTotalSeasons(): Int = seasons?.size ?: 0
+    fun getTotalSeasons(): Int {
+        return try {
+            seasons?.size ?: 0
+        } catch (e: Exception) {
+            0
+        }
+    }
     
     /**
      * Retourne le statut formaté
@@ -190,7 +206,19 @@ data class Series(
     /**
      * Vérifie si la série a des saisons valides
      */
-    fun hasValidSeasons(): Boolean = !seasons.isNullOrEmpty() && seasons.any { it.hasValidEpisodes() }
+    fun hasValidSeasons(): Boolean {
+        return try {
+            !seasons.isNullOrEmpty() && seasons.any { 
+                try {
+                    it.hasValidEpisodes()
+                } catch (e: Exception) {
+                    false
+                }
+            }
+        } catch (e: Exception) {
+            false
+        }
+    }
     
     /**
      * Retourne les créateurs formatés

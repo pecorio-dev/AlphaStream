@@ -167,19 +167,46 @@ class ContentRepository @Inject constructor(
     }
     
     /**
-     * Recherche de contenu
+     * Recherche de contenu avec validation
      */
     suspend fun searchContent(query: String, page: Int = 1, limit: Int = 50): Result<SearchResponse> {
         return withContext(Dispatchers.IO) {
             try {
-                val response = apiService.searchContent(query, page, limit)
+                // Validation de la query
+                val trimmedQuery = query.trim()
+                if (trimmedQuery.isBlank() || trimmedQuery.length < 2) {
+                    return@withContext Result.failure(Exception("Requête de recherche trop courte"))
+                }
+                
+                android.util.Log.d("ContentRepository", "searchContent: query='$trimmedQuery', page=$page, limit=$limit")
+                val response = apiService.searchContent(trimmedQuery, page, limit)
+                android.util.Log.d("ContentRepository", "searchContent: Réponse API - Code: ${response.code()}, Success: ${response.isSuccessful}")
+                
                 if (response.isSuccessful && response.body() != null) {
-                    Result.success(response.body()!!)
+                    val searchResponse = response.body()!!
+                    android.util.Log.d("ContentRepository", "searchContent: Résultats reçus: ${searchResponse.results.size}")
+                    
+                    // Filtrer les résultats invalides
+                    val validResults = searchResponse.results.filter { result ->
+                        result.title.isNotBlank() && (result.type == "movie" || result.type == "series")
+                    }
+                    
+                    val cleanedResponse = searchResponse.copy(results = validResults)
+                    android.util.Log.d("ContentRepository", "searchContent: Résultats valides: ${validResults.size}")
+                    
+                    Result.success(cleanedResponse)
                 } else {
-                    Result.failure(Exception("Erreur lors de la recherche: ${response.code()}"))
+                    val errorMsg = when (response.code()) {
+                        404 -> "Aucun résultat trouvé"
+                        400 -> "Requête de recherche invalide"
+                        500 -> "Erreur serveur"
+                        else -> "Erreur lors de la recherche: ${response.code()}"
+                    }
+                    Result.failure(Exception(errorMsg))
                 }
             } catch (e: Exception) {
-                Result.failure(e)
+                android.util.Log.e("ContentRepository", "searchContent: Erreur", e)
+                Result.failure(Exception("Erreur de connexion: ${e.message}", e))
             }
         }
     }
@@ -200,7 +227,16 @@ class ContentRepository @Inject constructor(
                 val homeContent = HomeContent(
                     latestMovies = movies,
                     latestSeries = series,
-                    trending = (movies + series.map { it.toSearchResult() }).shuffled().take(10)
+                    trending = try {
+                        // Mélanger films et séries pour le trending
+                        val trendingList = mutableListOf<Any>()
+                        trendingList.addAll(movies.take(5))
+                        trendingList.addAll(series.take(5))
+                        trendingList.shuffled().take(10)
+                    } catch (e: Exception) {
+                        android.util.Log.e("ContentRepository", "Erreur trending", e)
+                        emptyList()
+                    }
                 )
                 
                 Result.success(homeContent)

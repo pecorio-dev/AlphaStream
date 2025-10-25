@@ -27,7 +27,10 @@ class TrendingAdapter(
     }
 
     override fun onBindViewHolder(holder: TrendingViewHolder, position: Int) {
-        holder.bind(getItem(position))
+        val item = getItem(position)
+        if (item != null) {
+            holder.bind(item)
+        }
     }
 
     inner class TrendingViewHolder(
@@ -36,25 +39,48 @@ class TrendingAdapter(
 
         fun bind(item: Any) {
             with(binding) {
-                when (item) {
-                    is Movie -> bindMovie(item)
-                    is Series -> bindSeries(item)
+                try {
+                    when (item) {
+                        is Movie -> bindMovie(item)
+                        is Series -> bindSeries(item)
+                        else -> {
+                            // Handle unknown item type gracefully
+                            trendingTitle.text = "Contenu inconnu"
+                            trendingRating.text = "N/A"
+                            trendingYear.text = ""
+                            trendingQuality.visibility = android.view.View.GONE
+                            trendingImage.setImageResource(R.drawable.placeholder_trending)
+                        }
+                    }
+                    
+                    // Gestion du clic
+                    root.setOnClickListener {
+                        onItemClick(item)
+                    }
+                    
+                    // Animation d'entrée avec effet de parallaxe (avec protection)
+                    try {
+                        root.alpha = 0f
+                        root.translationX = 200f
+                        root.animate()
+                            .alpha(1f)
+                            .translationX(0f)
+                            .setDuration(400)
+                            .setStartDelay((bindingAdapterPosition * 100).toLong())
+                            .start()
+                    } catch (e: Exception) {
+                        // Fallback: just show the item without animation
+                        root.alpha = 1f
+                        root.translationX = 0f
+                    }
+                } catch (e: Exception) {
+                    // Fallback for any binding errors
+                    trendingTitle.text = "Erreur de chargement"
+                    trendingRating.text = "N/A"
+                    trendingYear.text = ""
+                    trendingQuality.visibility = android.view.View.GONE
+                    trendingImage.setImageResource(R.drawable.placeholder_trending)
                 }
-                
-                // Gestion du clic
-                root.setOnClickListener {
-                    onItemClick(item)
-                }
-                
-                // Animation d'entrée avec effet de parallaxe
-                root.alpha = 0f
-                root.translationX = 200f
-                root.animate()
-                    .alpha(1f)
-                    .translationX(0f)
-                    .setDuration(400)
-                    .setStartDelay((bindingAdapterPosition * 100).toLong())
-                    .start()
             }
         }
         
@@ -86,18 +112,23 @@ class TrendingAdapter(
                     trendingQuality.visibility = android.view.View.GONE
                 }
                 
-                // Image
-                movie.getDisplayImageUrl()?.let { imageUrl ->
-                    Glide.with(trendingImage.context)
-                        .load(imageUrl)
-                        .apply(
-                            RequestOptions()
-                                .placeholder(R.drawable.placeholder_trending)
-                                .error(R.drawable.placeholder_trending)
-                                .transform(RoundedCorners(32))
-                        )
-                        .into(trendingImage)
-                } ?: run {
+                // Image with null safety
+                val imageUrl = movie.getDisplayImageUrl()
+                if (!imageUrl.isNullOrBlank()) {
+                    try {
+                        Glide.with(trendingImage.context)
+                            .load(imageUrl)
+                            .apply(
+                                RequestOptions()
+                                    .placeholder(R.drawable.placeholder_trending)
+                                    .error(R.drawable.placeholder_trending)
+                                    .transform(RoundedCorners(32))
+                            )
+                            .into(trendingImage)
+                    } catch (e: Exception) {
+                        trendingImage.setImageResource(R.drawable.placeholder_trending)
+                    }
+                } else {
                     trendingImage.setImageResource(R.drawable.placeholder_trending)
                 }
             }
@@ -131,18 +162,23 @@ class TrendingAdapter(
                     trendingQuality.visibility = android.view.View.GONE
                 }
                 
-                // Image
-                series.getDisplayImageUrl()?.let { imageUrl ->
-                    Glide.with(trendingImage.context)
-                        .load(imageUrl)
-                        .apply(
-                            RequestOptions()
-                                .placeholder(R.drawable.placeholder_trending)
-                                .error(R.drawable.placeholder_trending)
-                                .transform(RoundedCorners(32))
-                        )
-                        .into(trendingImage)
-                } ?: run {
+                // Image with null safety
+                val imageUrl = series.getDisplayImageUrl()
+                if (!imageUrl.isNullOrBlank()) {
+                    try {
+                        Glide.with(trendingImage.context)
+                            .load(imageUrl)
+                            .apply(
+                                RequestOptions()
+                                    .placeholder(R.drawable.placeholder_trending)
+                                    .error(R.drawable.placeholder_trending)
+                                    .transform(RoundedCorners(32))
+                            )
+                            .into(trendingImage)
+                    } catch (e: Exception) {
+                        trendingImage.setImageResource(R.drawable.placeholder_trending)
+                    }
+                } else {
                     trendingImage.setImageResource(R.drawable.placeholder_trending)
                 }
             }

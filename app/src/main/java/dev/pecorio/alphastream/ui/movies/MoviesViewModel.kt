@@ -36,13 +36,18 @@ class MoviesViewModel @Inject constructor(
     }
 
     fun loadMovies(refresh: Boolean = false) {
+        android.util.Log.d("MoviesViewModel", "loadMovies() démarré - refresh: $refresh")
+        
         if (refresh) {
             currentPage = 1
             hasMorePages = true
             allMovies = emptyList()
         }
 
-        if (isLoading) return
+        if (isLoading) {
+            android.util.Log.d("MoviesViewModel", "Déjà en cours de chargement, ignoré")
+            return
+        }
 
         viewModelScope.launch {
             isLoading = true
@@ -51,17 +56,22 @@ class MoviesViewModel @Inject constructor(
             }
 
             try {
+                android.util.Log.d("MoviesViewModel", "Appel API getMovies - page: $currentPage")
                 val result = contentRepository.getMovies(currentPage, 50)
                 
                 if (result.isSuccess) {
                     val moviesResponse = result.getOrNull()!!
                     val newMovies = moviesResponse.movies
                     
+                    android.util.Log.d("MoviesViewModel", "Films reçus: ${newMovies.size}")
+                    
                     allMovies = if (refresh || currentPage == 1) {
                         newMovies
                     } else {
                         allMovies + newMovies
                     }
+                    
+                    android.util.Log.d("MoviesViewModel", "Total films: ${allMovies.size}")
                     
                     // Check if there are more pages
                     hasMorePages = newMovies.size >= 50
@@ -71,9 +81,11 @@ class MoviesViewModel @Inject constructor(
                     applyFilters()
                 } else {
                     val error = result.exceptionOrNull()?.message ?: "Erreur lors du chargement des films"
+                    android.util.Log.e("MoviesViewModel", "Erreur API: $error")
                     _uiState.value = MoviesUiState.Error(error)
                 }
             } catch (e: Exception) {
+                android.util.Log.e("MoviesViewModel", "Exception", e)
                 _uiState.value = MoviesUiState.Error(e.message ?: "Erreur inconnue")
             } finally {
                 isLoading = false

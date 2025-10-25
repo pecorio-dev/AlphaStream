@@ -25,7 +25,10 @@ class SearchResultsAdapter(
     }
 
     override fun onBindViewHolder(holder: SearchResultViewHolder, position: Int) {
-        holder.bind(getItem(position))
+        val item = getItem(position)
+        if (item != null) {
+            holder.bind(item)
+        }
     }
 
     inner class SearchResultViewHolder(
@@ -60,21 +63,24 @@ class SearchResultsAdapter(
                 }
 
                 // Genres
-                searchResult.getFormattedGenres()?.let { genres ->
-                    searchResultGenres.text = genres
-                } ?: run {
-                    searchResultGenres.text = "Genres non spécifiés"
+                val genres = searchResult.getFormattedGenres()
+                searchResultGenres.text = if (!genres.isNullOrBlank()) {
+                    genres
+                } else {
+                    "Genres non spécifiés"
                 }
 
                 // Synopsis
-                searchResult.getDisplayOverview()?.let { synopsis ->
-                    searchResultSynopsis.text = synopsis
-                } ?: run {
-                    searchResultSynopsis.text = "Aucun synopsis disponible."
+                val synopsis = searchResult.getDisplayOverview()
+                searchResultSynopsis.text = if (!synopsis.isNullOrBlank()) {
+                    synopsis
+                } else {
+                    "Aucun synopsis disponible."
                 }
 
-                // Load poster image
-                searchResult.getDisplayImageUrl()?.let { imageUrl ->
+                // Load poster image with null safety
+                val imageUrl = searchResult.getDisplayImageUrl()
+                if (!imageUrl.isNullOrBlank()) {
                     Glide.with(itemView.context)
                         .load(imageUrl)
                         .apply(
@@ -83,7 +89,7 @@ class SearchResultsAdapter(
                                 .error(R.drawable.placeholder_movie)
                         )
                         .into(searchResultPoster)
-                } ?: run {
+                } else {
                     searchResultPoster.setImageResource(R.drawable.placeholder_movie)
                 }
 

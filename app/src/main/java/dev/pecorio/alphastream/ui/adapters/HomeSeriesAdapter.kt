@@ -26,7 +26,10 @@ class HomeSeriesAdapter(
     }
 
     override fun onBindViewHolder(holder: SeriesViewHolder, position: Int) {
-        holder.bind(getItem(position))
+        val item = getItem(position)
+        if (item != null) {
+            holder.bind(item)
+        }
     }
 
     inner class SeriesViewHolder(
@@ -63,9 +66,9 @@ class HomeSeriesAdapter(
                     seriesQuality.visibility = android.view.View.GONE
                 }
                 
-                // Informations sur les saisons/épisodes
-                val seasonsCount = series.getTotalSeasons()
-                val episodesCount = series.getTotalEpisodes()
+                // Informations sur les saisons/épisodes avec null safety
+                val seasonsCount = try { series.getTotalSeasons() } catch (e: Exception) { 0 }
+                val episodesCount = try { series.getTotalEpisodes() } catch (e: Exception) { 0 }
                 
                 when {
                     seasonsCount > 0 && episodesCount > 0 -> {
@@ -81,18 +84,23 @@ class HomeSeriesAdapter(
                     }
                 }
                 
-                // Image
-                series.getDisplayImageUrl()?.let { imageUrl ->
-                    Glide.with(seriesImage.context)
-                        .load(imageUrl)
-                        .apply(
-                            RequestOptions()
-                                .placeholder(R.drawable.placeholder_series)
-                                .error(R.drawable.placeholder_series)
-                                .transform(RoundedCorners(24))
-                        )
-                        .into(seriesImage)
-                } ?: run {
+                // Image with null safety
+                val imageUrl = series.getDisplayImageUrl()
+                if (!imageUrl.isNullOrBlank()) {
+                    try {
+                        Glide.with(seriesImage.context)
+                            .load(imageUrl)
+                            .apply(
+                                RequestOptions()
+                                    .placeholder(R.drawable.placeholder_series)
+                                    .error(R.drawable.placeholder_series)
+                                    .transform(RoundedCorners(24))
+                            )
+                            .into(seriesImage)
+                    } catch (e: Exception) {
+                        seriesImage.setImageResource(R.drawable.placeholder_series)
+                    }
+                } else {
                     seriesImage.setImageResource(R.drawable.placeholder_series)
                 }
                 

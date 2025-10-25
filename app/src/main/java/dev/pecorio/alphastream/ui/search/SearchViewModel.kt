@@ -44,14 +44,21 @@ class SearchViewModel @Inject constructor(
                 val result = contentRepository.searchContent(query)
                 
                 if (result.isSuccess) {
-                    val searchResponse = result.getOrNull()!!
-                    allResults = searchResponse.results
-                    
-                    // Add to recent searches
-                    addRecentSearch(query)
-                    
-                    // Apply current filter
-                    applyFilter()
+                    val searchResponse = result.getOrNull()
+                    if (searchResponse != null && searchResponse.results.isNotEmpty()) {
+                        allResults = searchResponse.results.filter { it.title.isNotBlank() }
+                        
+                        // Add to recent searches only if we have results
+                        if (allResults.isNotEmpty()) {
+                            addRecentSearch(query)
+                        }
+                        
+                        // Apply current filter
+                        applyFilter()
+                    } else {
+                        allResults = emptyList()
+                        _uiState.value = SearchUiState.Empty
+                    }
                 } else {
                     val error = result.exceptionOrNull()?.message ?: "Erreur lors de la recherche"
                     _uiState.value = SearchUiState.Error(error)
@@ -69,9 +76,9 @@ class SearchViewModel @Inject constructor(
 
     private fun applyFilter() {
         val filteredResults = when (currentFilter) {
-            "movies" -> allResults.filter { it.type == "movie" }
-            "series" -> allResults.filter { it.type == "series" }
-            else -> allResults
+            "movies" -> allResults.filter { it.type == "movie" && it.title.isNotBlank() }
+            "series" -> allResults.filter { it.type == "series" && it.title.isNotBlank() }
+            else -> allResults.filter { it.title.isNotBlank() }
         }
         
         if (filteredResults.isEmpty()) {
@@ -92,15 +99,18 @@ class SearchViewModel @Inject constructor(
     }
 
     private fun addRecentSearch(query: String) {
-        // Remove if already exists
-        recentSearchesList.remove(query)
-        // Add to beginning
-        recentSearchesList.add(0, query)
-        // Keep only last 10 searches
-        if (recentSearchesList.size > 10) {
-            recentSearchesList.removeAt(recentSearchesList.size - 1)
+        val trimmedQuery = query.trim()
+        if (trimmedQuery.isNotBlank() && trimmedQuery.length >= 2) {
+            // Remove if already exists
+            recentSearchesList.remove(trimmedQuery)
+            // Add to beginning
+            recentSearchesList.add(0, trimmedQuery)
+            // Keep only last 10 searches
+            if (recentSearchesList.size > 10) {
+                recentSearchesList.removeAt(recentSearchesList.size - 1)
+            }
+            _recentSearches.value = recentSearchesList.toList()
         }
-        _recentSearches.value = recentSearchesList.toList()
     }
 
     fun removeRecentSearch(query: String) {

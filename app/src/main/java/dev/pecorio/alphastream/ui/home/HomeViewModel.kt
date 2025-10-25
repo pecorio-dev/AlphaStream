@@ -36,14 +36,21 @@ class HomeViewModel @Inject constructor(
     }
 
     fun loadHomeContent() {
+        android.util.Log.d("HomeViewModel", "loadHomeContent() démarré")
         _uiState.value = HomeUiState.Loading
         
         viewModelScope.launch {
             try {
+                android.util.Log.d("HomeViewModel", "Appel de contentRepository.getHomeContent()")
                 val homeContentResult = contentRepository.getHomeContent()
                 
                 if (homeContentResult.isSuccess) {
                     val homeContent = homeContentResult.getOrNull()!!
+                    
+                    android.util.Log.d("HomeViewModel", "Contenu reçu:")
+                    android.util.Log.d("HomeViewModel", "  Films: ${homeContent.latestMovies.size}")
+                    android.util.Log.d("HomeViewModel", "  Séries: ${homeContent.latestSeries.size}")
+                    android.util.Log.d("HomeViewModel", "  Trending: ${homeContent.trending.size}")
                     
                     // Debug: Log movie URLs
                     homeContent.latestMovies.take(3).forEach { movie ->
@@ -58,12 +65,14 @@ class HomeViewModel @Inject constructor(
                     _trendingContent.value = homeContent.trending
                     
                     _uiState.value = HomeUiState.Success
+                    android.util.Log.d("HomeViewModel", "Contenu chargé avec succès")
                 } else {
-                    _uiState.value = HomeUiState.Error(
-                        homeContentResult.exceptionOrNull()?.message ?: "Erreur inconnue"
-                    )
+                    val errorMsg = homeContentResult.exceptionOrNull()?.message ?: "Erreur inconnue"
+                    android.util.Log.e("HomeViewModel", "Erreur lors du chargement: $errorMsg")
+                    _uiState.value = HomeUiState.Error(errorMsg)
                 }
             } catch (e: Exception) {
+                android.util.Log.e("HomeViewModel", "Exception lors du chargement", e)
                 _uiState.value = HomeUiState.Error(e.message ?: "Erreur inconnue")
             }
         }

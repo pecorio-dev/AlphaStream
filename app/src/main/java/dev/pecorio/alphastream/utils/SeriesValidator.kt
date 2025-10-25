@@ -14,18 +14,28 @@ object SeriesValidator {
      * Valide une série et retourne une version nettoyée
      */
     fun validateAndCleanSeries(series: Series): Series {
-        return series.copy(
-            title = series.title.takeIf { it.isNotBlank() } ?: "Série sans titre",
-            synopsis = series.synopsis?.takeIf { it.isNotBlank() },
-            genres = series.genres?.filter { it.isNotBlank() }?.takeIf { it.isNotEmpty() },
-            cast = series.cast?.filter { it.isNotBlank() }?.takeIf { it.isNotEmpty() },
-            creators = series.creators?.filter { it.isNotBlank() }?.takeIf { it.isNotEmpty() },
-            directors = series.directors?.filter { it.isNotBlank() }?.takeIf { it.isNotEmpty() },
-            networks = series.networks?.filter { it.isNotBlank() }?.takeIf { it.isNotEmpty() },
-            countries = series.countries?.filter { it.isNotBlank() }?.takeIf { it.isNotEmpty() },
-            rating = series.rating?.takeIf { it >= 0.0 && it <= 10.0 },
-            seasons = series.seasons?.mapNotNull { validateAndCleanSeason(it) }?.takeIf { it.isNotEmpty() }
-        )
+        return try {
+            series.copy(
+                title = series.title.takeIf { it.isNotBlank() } ?: "Série sans titre",
+                synopsis = series.synopsis?.takeIf { it.isNotBlank() },
+                genres = try { series.genres?.filter { it.isNotBlank() }?.takeIf { it.isNotEmpty() } } catch (e: Exception) { null },
+                cast = try { series.cast?.filter { it.isNotBlank() }?.takeIf { it.isNotEmpty() } } catch (e: Exception) { null },
+                creators = try { series.creators?.filter { it.isNotBlank() }?.takeIf { it.isNotEmpty() } } catch (e: Exception) { null },
+                directors = try { series.directors?.filter { it.isNotBlank() }?.takeIf { it.isNotEmpty() } } catch (e: Exception) { null },
+                networks = try { series.networks?.filter { it.isNotBlank() }?.takeIf { it.isNotEmpty() } } catch (e: Exception) { null },
+                countries = try { series.countries?.filter { it.isNotBlank() }?.takeIf { it.isNotEmpty() } } catch (e: Exception) { null },
+                rating = try { series.rating?.takeIf { it >= 0.0 && it <= 10.0 } } catch (e: Exception) { null },
+                seasons = try { series.seasons?.mapNotNull { validateAndCleanSeason(it) }?.takeIf { it.isNotEmpty() } } catch (e: Exception) { null }
+            )
+        } catch (e: Exception) {
+            // Return a minimal valid series if cleaning fails
+            Series(
+                id = series.id,
+                title = series.title.takeIf { it.isNotBlank() } ?: "Série sans titre",
+                imageUrl = series.imageUrl,
+                remoteImageUrl = series.remoteImageUrl
+            )
+        }
     }
     
     /**
@@ -120,10 +130,25 @@ object SeriesValidator {
     /**
      * Nettoie et valide une liste de séries
      */
-    fun validateAndCleanSeriesList(seriesList: List<Series>): List<Series> {
-        return seriesList.mapNotNull { series ->
-            val cleanedSeries = validateAndCleanSeries(series)
-            if (isSeriesValid(cleanedSeries)) cleanedSeries else null
+    fun validateAndCleanSeriesList(seriesList: List<Series>?): List<Series> {
+        if (seriesList.isNullOrEmpty()) {
+            return emptyList()
+        }
+        
+        return try {
+            seriesList.mapNotNull { series ->
+                try {
+                    val cleanedSeries = validateAndCleanSeries(series)
+                    if (isSeriesValid(cleanedSeries)) cleanedSeries else null
+                } catch (e: Exception) {
+                    // Log error but continue processing other series
+                    android.util.Log.w("SeriesValidator", "Error validating series: ${series.title}", e)
+                    null
+                }
+            }
+        } catch (e: Exception) {
+            android.util.Log.e("SeriesValidator", "Error processing series list", e)
+            emptyList()
         }
     }
     
@@ -154,11 +179,23 @@ object SeriesValidator {
      * Compte le nombre total d'épisodes disponibles avec des liens de streaming
      */
     fun countAvailableEpisodes(series: Series): Int {
-        return series.seasons?.sumOf { season ->
-            season.episodes?.count { episode ->
-                episode.hasStreamingLinks()
+        return try {
+            series.seasons?.sumOf { season ->
+                try {
+                    season.episodes?.count { episode ->
+                        try {
+                            episode.hasStreamingLinks()
+                        } catch (e: Exception) {
+                            false
+                        }
+                    } ?: 0
+                } catch (e: Exception) {
+                    0
+                }
             } ?: 0
-        } ?: 0
+        } catch (e: Exception) {
+            0
+        }
     }
     
     /**
