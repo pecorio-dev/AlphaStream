@@ -1,5 +1,5 @@
 # 🎬 AlphaStream
-
+<image-card alt="AlphaStream Logo" src="https://github.com/pecorio-dev/AlphaStream/blob/master/image.jpg?raw=true" ></image-card>
 [![Android](https://img.shields.io/badge/Platform-Android-green.svg)](https://android.com)
 [![Kotlin](https://img.shields.io/badge/Language-Kotlin-blue.svg)](https://kotlinlang.org)
 [![API](https://img.shields.io/badge/API-25%2B-brightgreen.svg)](https://android-arsenal.com/api?level=25)
@@ -199,8 +199,3 @@ Votre soutien nous aide à :
 
 [⬆ Retour en haut](#-alphastream)
 
-<<<<<<< HEAD
-</div>
-=======
-</div>
->>>>>>> f92ee43803411b363d4cb2967cd94dff20ff88da
