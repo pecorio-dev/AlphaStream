@@ -199,8 +199,3 @@ Votre soutien nous aide à :
 
 [⬆ Retour en haut](#-alphastream)
 
-<<<<<<< HEAD
-</div>
-=======
-</div>
->>>>>>> f92ee43803411b363d4cb2967cd94dff20ff88da
