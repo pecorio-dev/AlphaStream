@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">AlphaStream</string>
+    
+    <!-- Home -->
+    <string name="home_welcome">Découvrez les derniers films et séries</string>
+    <string name="home_trending">Tendances</string>
+    <string name="home_latest_movies">Derniers films</string>
+    <string name="home_latest_series">Dernières séries</string>
+    <string name="see_all">Voir tout</string>
+    
+    <!-- Search -->
+    <string name="search_hint">Rechercher films et séries…</string>
+    
+    <!-- Common -->
+    <string name="retry">Réessayer</string>
+    <string name="error_network">Erreur de connexion</string>
+    
+    <!-- Navigation -->
+    <string name="nav_home">Accueil</string>
+    <string name="nav_movies">Films</string>
+    <string name="nav_series">Séries</string>
+    <string name="nav_search">Recherche</string>
+    <string name="nav_favorites">Favoris</string>
+    <string name="nav_settings">Paramètres</string>
+    
+    <!-- Content Descriptions -->
+    <string name="cd_poster">Affiche du film</string>
+    <string name="cd_favorite_button">Bouton favoris</string>
+    <string name="cd_back_button">Bouton retour</string>
+    <string name="cd_play_button">Bouton lecture</string>
+    <string name="cd_rating">Note du contenu</string>
+    
+    <!-- Actions -->
+    <string name="play">Lire</string>
+    <string name="synopsis">Synopsis</string>
+    <string name="cast">Distribution</string>
+    <string name="director">Réalisateur</string>
+    
+    <!-- Search -->
+    <string name="search_recent">Recherches récentes</string>
+    <string name="search_clear_history">Effacer l\'historique</string>
+    <string name="clear_search">Effacer la recherche</string>
+    <string name="play_episode">Lire l\'épisode</string>
+    <string name="search_no_results">Aucun résultat trouvé</string>
+</resources>

@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.google.android.material.card.MaterialCardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    style="@style/Widget.AlphaStream.Card"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginBottom="12dp"
+    android:clickable="true"
+    android:focusable="true"
+    android:foreground="?attr/selectableItemBackground">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:padding="16dp">
+
+        <!-- Season Info (sans image) -->
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:orientation="vertical">
+
+            <!-- Season Title -->
+            <TextView
+                android:id="@+id/season_title"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:fontFamily="sans-serif-medium"
+                android:text="Saison 1"
+                android:textColor="?attr/colorOnSurface"
+                android:textSize="16sp"
+                android:textStyle="bold"
+                tools:text="Saison 1" />
+
+            <!-- Episode Count -->
+            <TextView
+                android:id="@+id/season_episode_count"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="4dp"
+                android:text="8 épisodes"
+                android:textColor="@color/text_secondary_dark"
+                android:textSize="12sp"
+                tools:text="8 épisodes" />
+
+            <!-- Season Overview -->
+            <TextView
+                android:id="@+id/season_overview"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:ellipsize="end"
+                android:maxLines="3"
+                android:text="Description de la saison..."
+                android:textColor="@color/text_secondary_dark"
+                android:textSize="12sp"
+                tools:text="Geralt of Rivia, a solitary monster hunter, struggles to find his place in a world where people often prove more wicked than beasts." />
+
+            <!-- Air Date -->
+            <TextView
+                android:id="@+id/season_air_date"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:text="Diffusée en 2019"
+                android:textColor="@color/text_secondary_dark"
+                android:textSize="11sp"
+                tools:text="Diffusée en 2019" />
+            
+            <!-- Season Availability Indicator -->
+            <dev.pecorio.alphastream.ui.components.DataCompletenessView
+                android:id="@+id/season_availability_indicator"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp" />
+
+        </LinearLayout>
+
+        <!-- Arrow Icon -->
+        <ImageView
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:layout_gravity="center_vertical"
+            android:layout_marginStart="8dp"
+            android:src="@drawable/ic_arrow_forward"
+            app:tint="@color/text_secondary_dark" />
+
+    </LinearLayout>
+
+</com.google.android.material.card.MaterialCardView>

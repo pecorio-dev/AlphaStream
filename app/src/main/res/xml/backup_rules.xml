@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<full-backup-content>
+    <!-- Exclude cache directory -->
+    <exclude domain="cache" />
+    <!-- Exclude temporary files -->
+    <exclude domain="file" path="temp/" />
+</full-backup-content>

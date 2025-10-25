@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_graph"
+    app:startDestination="@id/nav_home">
+
+    <fragment
+        android:id="@+id/nav_home"
+        android:name="dev.pecorio.alphastream.ui.home.HomeFragment"
+        android:label="@string/nav_home"
+        tools:layout="@layout/fragment_home" />
+
+    <fragment
+        android:id="@+id/nav_series"
+        android:name="dev.pecorio.alphastream.ui.series.SeriesFragment"
+        android:label="@string/nav_series"
+        tools:layout="@layout/fragment_series" />
+
+    <fragment
+        android:id="@+id/nav_movies"
+        android:name="dev.pecorio.alphastream.ui.movies.MoviesFragment"
+        android:label="@string/nav_movies" />
+
+    <fragment
+        android:id="@+id/nav_search"
+        android:name="dev.pecorio.alphastream.ui.search.SearchFragment"
+        android:label="@string/nav_search" />
+
+    <fragment
+        android:id="@+id/nav_favorites"
+        android:name="dev.pecorio.alphastream.ui.favorites.FavoritesFragment"
+        android:label="@string/nav_favorites" />
+
+    <fragment
+        android:id="@+id/nav_settings"
+        android:name="dev.pecorio.alphastream.ui.settings.SettingsFragment"
+        android:label="@string/nav_settings"
+        tools:layout="@layout/fragment_settings" />
+
+</navigation>

@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- TV Theme -->
+    <style name="Theme.AlphaStream.TV" parent="Theme.Material3.DayNight.NoActionBar">
+        <!-- Primary colors -->
+        <item name="colorPrimary">@color/tv_focus_primary</item>
+        <item name="colorPrimaryVariant">@color/tv_focus_secondary</item>
+        <item name="colorOnPrimary">@color/white</item>
+        
+        <!-- Secondary colors -->
+        <item name="colorSecondary">@color/accent_green</item>
+        <item name="colorSecondaryVariant">@color/accent_orange</item>
+        <item name="colorOnSecondary">@color/white</item>
+        
+        <!-- Background colors -->
+        <item name="android:colorBackground">@color/background_dark</item>
+        <item name="colorSurface">@color/surface_dark</item>
+        <item name="colorOnBackground">@color/tv_text_primary</item>
+        <item name="colorOnSurface">@color/tv_text_primary</item>
+        
+        <!-- Status bar -->
+        <item name="android:statusBarColor">@color/background_dark</item>
+        <item name="android:navigationBarColor">@color/background_dark</item>
+        <item name="android:windowLightStatusBar">false</item>
+        
+        <!-- TV specific -->
+        <item name="android:windowFullscreen">true</item>
+        <item name="android:windowContentOverlay">@null</item>
+        
+        <!-- Focus colors -->
+        <item name="android:colorFocusedHighlight">@color/tv_focus_primary</item>
+        <item name="android:colorControlHighlight">@color/tv_focus_background</item>
+        
+        <!-- Text colors -->
+        <item name="android:textColorPrimary">@color/tv_text_primary</item>
+        <item name="android:textColorSecondary">@color/tv_text_secondary</item>
+        <item name="android:textColorTertiary">@color/tv_text_tertiary</item>
+    </style>
+    
+    <!-- TV Leanback Theme (pour Android TV) -->
+    <style name="Theme.AlphaStream.TV.Leanback" parent="Theme.AlphaStream.TV">
+        <item name="android:windowIsTranslucent">false</item>
+        <item name="android:windowBackground">@color/background_dark</item>
+        <item name="android:backgroundDimEnabled">false</item>
+        <item name="android:windowContentOverlay">@null</item>
+        <item name="android:windowActionBar">false</item>
+        <item name="android:windowNoTitle">true</item>
+    </style>
+</resources>

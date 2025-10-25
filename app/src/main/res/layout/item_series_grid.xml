@@ -1,0 +1,207 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.google.android.material.card.MaterialCardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    style="@style/Widget.AlphaStream.Card"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_margin="8dp"
+    android:clickable="true"
+    android:focusable="true"
+    android:foreground="?attr/selectableItemBackground">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <!-- Poster Container -->
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="240dp">
+
+            <!-- Poster Image -->
+            <ImageView
+                android:id="@+id/series_poster"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:contentDescription="@string/cd_poster"
+                android:scaleType="centerCrop"
+                tools:src="@tools:sample/backgrounds/scenic" />
+
+            <!-- Quality Badge -->
+            <TextView
+                android:id="@+id/series_quality"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="top|end"
+                android:layout_margin="8dp"
+                android:background="@drawable/quality_badge_background"
+                android:paddingHorizontal="8dp"
+                android:paddingVertical="4dp"
+                android:text="HD"
+                android:textColor="@color/white"
+                android:textSize="10sp"
+                android:textStyle="bold"
+                android:visibility="gone"
+                tools:text="HD"
+                tools:visibility="visible" />
+
+            <!-- Rating Badge -->
+            <LinearLayout
+                android:id="@+id/rating_container"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="top|start"
+                android:layout_margin="8dp"
+                android:background="@drawable/rating_badge_background"
+                android:gravity="center_vertical"
+                android:orientation="horizontal"
+                android:paddingHorizontal="8dp"
+                android:paddingVertical="4dp"
+                android:visibility="gone"
+                tools:visibility="visible">
+
+                <ImageView
+                    android:layout_width="12dp"
+                    android:layout_height="12dp"
+                    android:layout_marginEnd="4dp"
+                    android:src="@drawable/ic_star"
+                    app:tint="@color/accent_orange" />
+
+                <TextView
+                    android:id="@+id/series_rating"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="8.5"
+                    android:textColor="@color/white"
+                    android:textSize="10sp"
+                    android:textStyle="bold"
+                    tools:text="8.5" />
+
+            </LinearLayout>
+
+            <!-- Status Badge -->
+            <TextView
+                android:id="@+id/series_status"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="bottom|end"
+                android:layout_margin="8dp"
+                android:background="@drawable/status_badge_background"
+                android:paddingHorizontal="8dp"
+                android:paddingVertical="4dp"
+                android:text="EN COURS"
+                android:textColor="@color/white"
+                android:textSize="9sp"
+                android:textStyle="bold"
+                android:visibility="gone"
+                tools:text="TERMINÉE"
+                tools:visibility="visible" />
+
+            <!-- Gradient Overlay -->
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="60dp"
+                android:layout_gravity="bottom"
+                android:background="@drawable/gradient_overlay_bottom" />
+
+            <!-- Play Button Overlay -->
+            <ImageView
+                android:id="@+id/play_overlay"
+                android:layout_width="48dp"
+                android:layout_height="48dp"
+                android:layout_gravity="center"
+                android:alpha="0.8"
+                android:background="@drawable/play_button_background"
+                android:contentDescription="@string/cd_play_button"
+                android:padding="12dp"
+                android:src="@drawable/ic_play"
+                android:visibility="gone"
+                app:tint="@color/white" />
+
+        </FrameLayout>
+
+        <!-- Series Info -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:padding="12dp">
+
+            <!-- Title -->
+            <TextView
+                android:id="@+id/series_title"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:ellipsize="end"
+                android:fontFamily="sans-serif-medium"
+                android:maxLines="2"
+                android:text="Titre de la série"
+                android:textColor="?attr/colorOnSurface"
+                android:textSize="14sp"
+                android:textStyle="bold"
+                tools:text="The Witcher" />
+
+            <!-- Year and Genre -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="4dp"
+                android:gravity="center_vertical"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/series_year"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="2019"
+                    android:textColor="@color/text_secondary_dark"
+                    android:textSize="12sp"
+                    tools:text="2019" />
+
+                <View
+                    android:layout_width="4dp"
+                    android:layout_height="4dp"
+                    android:layout_marginHorizontal="8dp"
+                    android:background="@drawable/dot_separator" />
+
+                <TextView
+                    android:id="@+id/series_genre"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:ellipsize="end"
+                    android:maxLines="1"
+                    android:text="Fantasy"
+                    android:textColor="@color/text_secondary_dark"
+                    android:textSize="12sp"
+                    tools:text="Fantasy, Drama" />
+
+            </LinearLayout>
+
+            <!-- Seasons Info -->
+            <TextView
+                android:id="@+id/series_seasons"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="2dp"
+                android:text="3 saisons"
+                android:textColor="@color/text_secondary_dark"
+                android:textSize="11sp"
+                android:visibility="gone"
+                tools:text="3 saisons • 24 épisodes"
+                tools:visibility="visible" />
+            
+            <!-- Data Completeness Indicator -->
+            <dev.pecorio.alphastream.ui.components.DataCompletenessView
+                android:id="@+id/data_completeness_indicator"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp" />
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+</com.google.android.material.card.MaterialCardView>

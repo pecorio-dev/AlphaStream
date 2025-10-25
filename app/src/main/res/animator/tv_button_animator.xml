@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="utf-8"?>
+<selector xmlns:android="http://schemas.android.com/apk/res/android">
+    <!-- Focused state animation -->
+    <item android:state_focused="true">
+        <set android:ordering="together">
+            <objectAnimator
+                android:propertyName="scaleX"
+                android:duration="150"
+                android:valueTo="1.1"
+                android:valueType="floatType"
+                android:interpolator="@android:interpolator/decelerate_quad" />
+            <objectAnimator
+                android:propertyName="scaleY"
+                android:duration="150"
+                android:valueTo="1.1"
+                android:valueType="floatType"
+                android:interpolator="@android:interpolator/decelerate_quad" />
+            <objectAnimator
+                android:propertyName="elevation"
+                android:duration="150"
+                android:valueTo="8dp"
+                android:valueType="floatType"
+                android:interpolator="@android:interpolator/decelerate_quad" />
+        </set>
+    </item>
+    
+    <!-- Pressed state animation -->
+    <item android:state_pressed="true">
+        <set android:ordering="together">
+            <objectAnimator
+                android:propertyName="scaleX"
+                android:duration="100"
+                android:valueTo="0.95"
+                android:valueType="floatType"
+                android:interpolator="@android:interpolator/accelerate_quad" />
+            <objectAnimator
+                android:propertyName="scaleY"
+                android:duration="100"
+                android:valueTo="0.95"
+                android:valueType="floatType"
+                android:interpolator="@android:interpolator/accelerate_quad" />
+        </set>
+    </item>
+    
+    <!-- Default state animation -->
+    <item>
+        <set android:ordering="together">
+            <objectAnimator
+                android:propertyName="scaleX"
+                android:duration="150"
+                android:valueTo="1.0"
+                android:valueType="floatType"
+                android:interpolator="@android:interpolator/decelerate_quad" />
+            <objectAnimator
+                android:propertyName="scaleY"
+                android:duration="150"
+                android:valueTo="1.0"
+                android:valueType="floatType"
+                android:interpolator="@android:interpolator/decelerate_quad" />
+            <objectAnimator
+                android:propertyName="elevation"
+                android:duration="150"
+                android:valueTo="2dp"
+                android:valueType="floatType"
+                android:interpolator="@android:interpolator/decelerate_quad" />
+        </set>
+    </item>
+</selector>

@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Search Bar Style -->
+    <style name="Widget.AlphaStream.SearchBar" parent="Widget.MaterialComponents.CardView">
+        <item name="cardCornerRadius">24dp</item>
+        <item name="cardElevation">4dp</item>
+        <item name="cardBackgroundColor">@color/white</item>
+    </style>
+    
+    <!-- Button Style -->
+    <style name="Widget.AlphaStream.Button" parent="Widget.MaterialComponents.Button">
+        <item name="backgroundTint">@color/primary_blue</item>
+        <item name="android:textColor">@color/white</item>
+        <item name="cornerRadius">8dp</item>
+    </style>
+    
+    <!-- Card Style -->
+    <style name="Widget.AlphaStream.Card" parent="Widget.MaterialComponents.CardView">
+        <item name="cardCornerRadius">12dp</item>
+        <item name="cardElevation">4dp</item>
+    </style>
+    
+    <!-- Trending Card Style -->
+    <style name="Widget.AlphaStream.Card.Trending" parent="Widget.AlphaStream.Card">
+        <item name="cardCornerRadius">16dp</item>
+        <item name="cardElevation">8dp</item>
+        <item name="cardBackgroundColor">?attr/colorSurface</item>
+    </style>
+    
+    <!-- Bottom Navigation Style -->
+    <style name="Widget.AlphaStream.BottomNavigation" parent="Widget.MaterialComponents.BottomNavigationView">
+        <item name="backgroundTint">?attr/colorSurface</item>
+        <item name="itemIconTint">@color/bottom_nav_item_color</item>
+        <item name="itemTextColor">@color/bottom_nav_item_color</item>
+        <item name="elevation">8dp</item>
+    </style>
+    
+    <!-- Button Text Style -->
+    <style name="Widget.AlphaStream.Button.Text" parent="Widget.MaterialComponents.Button.TextButton">
+        <item name="android:textColor">?attr/colorPrimary</item>
+        <item name="rippleColor">?attr/colorPrimary</item>
+    </style>
+    
+    <!-- Button Outlined Style -->
+    <style name="Widget.AlphaStream.Button.Outlined" parent="Widget.MaterialComponents.Button.OutlinedButton">
+        <item name="strokeColor">?attr/colorPrimary</item>
+        <item name="android:textColor">?attr/colorPrimary</item>
+        <item name="rippleColor">?attr/colorPrimary</item>
+    </style>
+</resources>

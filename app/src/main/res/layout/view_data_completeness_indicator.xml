@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal"
+    android:gravity="center_vertical"
+    android:padding="8dp"
+    android:background="@drawable/data_completeness_background">
+
+    <!-- Completeness Icon -->
+    <ImageView
+        android:id="@+id/completeness_icon"
+        android:layout_width="16dp"
+        android:layout_height="16dp"
+        android:layout_marginEnd="6dp"
+        android:src="@drawable/ic_info"
+        app:tint="@color/text_secondary_dark" />
+
+    <!-- Completeness Text -->
+    <TextView
+        android:id="@+id/completeness_text"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:text="Données complètes"
+        android:textColor="@color/text_secondary_dark"
+        android:textSize="11sp"
+        tools:text="Données partielles" />
+
+    <!-- Missing Data Count -->
+    <TextView
+        android:id="@+id/missing_count"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:background="@drawable/missing_count_background"
+        android:paddingHorizontal="6dp"
+        android:paddingVertical="2dp"
+        android:text="3"
+        android:textColor="@color/white"
+        android:textSize="9sp"
+        android:textStyle="bold"
+        android:visibility="gone"
+        tools:text="5"
+        tools:visibility="visible" />
+
+</LinearLayout>

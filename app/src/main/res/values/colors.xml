@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Primary Colors -->
+    <color name="primary_blue">#1976D2</color>
+    <color name="primary_blue_dark">#1565C0</color>
+    <color name="primary_blue_light">#42A5F5</color>
+    
+    <!-- Accent Colors -->
+    <color name="accent_green">#4CAF50</color>
+    <color name="accent_orange">#FF9800</color>
+    <color name="accent_yellow">#FFC107</color>
+    
+    <!-- Text Colors -->
+    <color name="text_primary_dark">#212121</color>
+    <color name="text_secondary_dark">#757575</color>
+    <color name="text_primary_light">#FFFFFF</color>
+    <color name="text_secondary_light">#B3FFFFFF</color>
+    
+    <!-- Background Colors -->
+    <color name="background_light">#FAFAFA</color>
+    <color name="background_dark">#121212</color>
+    <color name="surface_light">#FFFFFF</color>
+    <color name="surface_dark">#1E1E1E</color>
+    
+    <!-- Common Colors -->
+    <color name="white">#FFFFFF</color>
+    <color name="black">#000000</color>
+    <color name="transparent">#00000000</color>
+    <color name="semi_transparent_black">#80000000</color>
+    
+    <!-- Status Colors -->
+    <!-- Error States -->
+    <color name="error">#F44336</color>
+    <color name="error_dark">#D32F2F</color>
+    
+    <!-- Progress -->
+    <color name="progress_background">#E0E0E0</color>
+    <color name="success">#4CAF50</color>
+    <color name="warning">#FF9800</color>
+    <color name="info">#2196F3</color>
+    
+    <!-- Surface Colors -->
+    <color name="surface_variant_dark">#2C2C2C</color>
+    <color name="semi_transparent_white">#80FFFFFF</color>
+    
+    <!-- Card Colors -->
+    <color name="card_stroke">#E0E0E0</color>
+    
+    <!-- TV Interface Colors -->
+    <color name="tv_focus_primary">#FF1976D2</color>
+    <color name="tv_focus_secondary">#FF42A5F5</color>
+    <color name="tv_focus_stroke">#FFFFFFFF</color>
+    <color name="tv_focus_background">#33FFFFFF</color>
+    
+    <color name="tv_navigation_background">#DD000000</color>
+    <color name="tv_text_primary">#FFFFFF</color>
+    <color name="tv_text_secondary">#CCFFFFFF</color>
+    <color name="tv_text_tertiary">#99FFFFFF</color>
+    
+    <color name="tv_button_focused">#FF1976D2</color>
+    <color name="tv_button_normal">#66FFFFFF</color>
+    <color name="tv_button_pressed">#FF0D47A1</color>
+</resources>

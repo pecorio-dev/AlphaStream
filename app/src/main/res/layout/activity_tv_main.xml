@@ -1,0 +1,160 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="@color/background_dark"
+    android:fitsSystemWindows="true">
+
+    <!-- Header -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="24dp"
+        android:background="@drawable/tv_header_gradient">
+
+        <!-- Title -->
+        <TextView
+            android:id="@+id/tv_title"
+            style="@style/TVTitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="32sp"
+            android:textStyle="bold"
+            tools:text="AlphaStream" />
+
+        <!-- Subtitle -->
+        <TextView
+            android:id="@+id/tv_subtitle"
+            style="@style/TVSubtitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="4dp"
+            android:textSize="18sp"
+            tools:text="Interface Télévision" />
+
+    </LinearLayout>
+
+    <!-- Navigation -->
+    <LinearLayout
+        style="@style/TVNavigationContainer"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="24dp"
+        android:layout_marginBottom="16dp">
+
+        <Button
+            android:id="@+id/btn_all"
+            style="@style/TVNavigationItem"
+            android:text="Tout"
+            android:drawableTop="@drawable/ic_home"
+            android:drawableTint="@color/tv_button_text_selector" />
+
+        <Button
+            android:id="@+id/btn_movies"
+            style="@style/TVNavigationItem"
+            android:text="Films"
+            android:drawableTop="@drawable/ic_movie"
+            android:drawableTint="@color/tv_button_text_selector" />
+
+        <Button
+            android:id="@+id/btn_series"
+            style="@style/TVNavigationItem"
+            android:text="Séries"
+            android:drawableTop="@drawable/ic_tv"
+            android:drawableTint="@color/tv_button_text_selector" />
+
+        <Button
+            android:id="@+id/btn_favorites"
+            style="@style/TVNavigationItem"
+            android:text="Favoris"
+            android:drawableTop="@drawable/ic_favorite"
+            android:drawableTint="@color/tv_button_text_selector" />
+
+    </LinearLayout>
+
+    <!-- Content Area -->
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1">
+
+        <!-- Content Grid -->
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/content_grid"
+            style="@style/TVContentGrid"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:clipToPadding="false"
+            android:paddingHorizontal="24dp"
+            android:paddingBottom="24dp"
+            tools:listitem="@layout/item_tv_content" />
+
+        <!-- Loading Indicator -->
+        <ProgressBar
+            android:id="@+id/loading_indicator"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:indeterminateTint="@color/tv_focus_primary"
+            android:visibility="gone" />
+
+        <!-- Error Message -->
+        <TextView
+            android:id="@+id/error_message"
+            style="@style/TVDescription"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:background="@drawable/tv_error_background"
+            android:drawableTop="@drawable/ic_error"
+            android:drawablePadding="16dp"
+            android:drawableTint="@color/error"
+            android:gravity="center"
+            android:padding="24dp"
+            android:textColor="@color/tv_text_primary"
+            android:textSize="16sp"
+            android:visibility="gone"
+            tools:text="Erreur de chargement"
+            tools:visibility="visible" />
+
+    </FrameLayout>
+
+    <!-- Footer Info -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:gravity="center_vertical"
+        android:padding="16dp"
+        android:background="@color/tv_navigation_background">
+
+        <ImageView
+            android:layout_width="16dp"
+            android:layout_height="16dp"
+            android:src="@drawable/ic_info"
+            android:layout_marginEnd="8dp"
+            app:tint="@color/tv_text_tertiary" />
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="Utilisez les flèches directionnelles pour naviguer • OK/Entrée pour sélectionner"
+            android:textColor="@color/tv_text_tertiary"
+            android:textSize="12sp" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Interface TV"
+            android:textColor="@color/tv_text_tertiary"
+            android:textSize="12sp"
+            android:textStyle="bold" />
+
+    </LinearLayout>
+
+</LinearLayout>
