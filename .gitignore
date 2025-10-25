@@ -41,6 +41,11 @@ captures/
 *.jks
 *.keystore
 
-# External native build folder generated in Android Studio 2.2 and later
+# External native build folder
 .externalNativeBuild
 cpp-build
+
+# Gradle wrapper
+gradle/
+gradlew
+gradlew.bat
